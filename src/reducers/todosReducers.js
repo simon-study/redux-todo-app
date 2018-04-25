@@ -5,35 +5,39 @@ const initialState = {
   error: null
 }
 
+const FETCH_TODOS_PENDING = 'FETCH_TODOS_PENDING';
+const FETCH_TODOS_REJECTED = 'FETCH_TODOS_REJECTED';
+const FETCH_TODOS_FULFILLED = 'FETCH_TODOS_FULFILLED';
+const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
+const TOGGLE_TODO_SUCCESS = 'TOGGLE_TODO_SUCCESS';
+const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_TODOS_PENDING':
+    case FETCH_TODOS_PENDING:
       return {
         ...state, 
         fetching: true
       }
-      break;
-    case 'FETCH_TODOS_REJECTED':
+    case FETCH_TODOS_REJECTED:
       return {
         ...state, 
         fetching: false,
         error: action.payload.error
       }
-      break;
-    case 'FETCH_TODOS_FULFILLED':
+    case FETCH_TODOS_FULFILLED:
       return {
         ...state, 
         fetching: false, 
         fetched: true, 
         todos: action.payload
       }
-      break;
-    case 'DELETE_TODO_SUCCESS': 
+    case DELETE_TODO_SUCCESS: 
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload.id)
       }
-    case 'TOGGLE_TODO_SUCCESS':
+    case TOGGLE_TODO_SUCCESS:
       return {
         ...state,
         todos: state.todos.map(todo => {
@@ -43,8 +47,14 @@ const reducer = (state = initialState, action) => {
           return todo;
         })
       }
+    case ADD_TODO_SUCCESS:
+      return {
+        ...state,
+        todos: state.todos.concat(action.payload)  
+      }
+    default:
+      return state;
   }
-  return state;
 }
 
 export default reducer;

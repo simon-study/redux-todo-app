@@ -13,8 +13,8 @@ class TodoList extends Component {
     this.props.removeTodo(id);
   }
 
-  toggleTodo = (id) => {
-    this.props.toggleTodo(id);
+  toggleTodo = (todo) => {
+    this.props.toggleTodo(todo);
   }
 
   render() {
@@ -33,7 +33,7 @@ class TodoList extends Component {
             return (
               <li key={todo.id}>
                 <span style={{textDecoration: todo.completed ? 'line-through' : 'none'}} 
-                  onClick={() => this.toggleTodo(todo.id)}>{todo.text}</span>
+                  onClick={() => this.toggleTodo(todo)}>{todo.text}</span>
                 <button onClick={() => this.removeTodo(todo.id)}>Remove</button>
               </li>
             )
@@ -57,8 +57,8 @@ const mapDispatchToProps = dispatch => {
     removeTodo: (id) => {
       dispatch(deleteTodo(id))
     },
-    toggleTodo: (id) => {
-      dispatch(toggleTodo(id))
+    toggleTodo: (todo) => {
+      dispatch(toggleTodo(todo))
     }
   }
 }
