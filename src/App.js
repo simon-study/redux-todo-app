@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import TodoFilter from './components/TodoFilter';
+import TodoEdit from './components/TodoEdit';
+import VisibleTodoList from './container/VisibleTodoList';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <TodoForm />
-        <TodoList />
+        <TodoEdit /> 
+        <VisibleTodoList />
+        <TodoFilter />
       </div>
     );
   }

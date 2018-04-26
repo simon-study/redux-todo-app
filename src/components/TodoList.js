@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchTodos } from '../action/todosAction';
-import { deleteTodo } from '../action/todosAction';
-import { toggleTodo } from '../action/todosAction';
 
 class TodoList extends Component {
+
   componentWillMount() {
     this.props.fetchData();
   }
@@ -17,8 +14,12 @@ class TodoList extends Component {
     this.props.toggleTodo(todo);
   }
 
+  toggleEdit = (todo) => {
+    this.props.toggleEdit(todo)
+  }
+
   render() {
-    const { todos, fetched, error } = this.props;
+    const { todos, fetched, error } = this.props; 
     
     if (!fetched) {
       return <div>Loading...</div>
@@ -26,41 +27,25 @@ class TodoList extends Component {
       return <div>Error: {error.message}</div>
     }
 
-    return(      
-      <ul>
-        {
-          todos.map(todo => {            
-            return (
-              <li key={todo.id}>
-                <span style={{textDecoration: todo.completed ? 'line-through' : 'none'}} 
-                  onClick={() => this.toggleTodo(todo)}>{todo.text}</span>
-                <button onClick={() => this.removeTodo(todo.id)}>Remove</button>
-              </li>
-            )
-          })
-        }
-      </ul>
+    return(
+      <div>        
+        <ul>
+          {
+            todos.map(todo => {            
+              return (
+                <li key={todo.id}>
+                  <span style={{textDecoration: todo.completed ? 'line-through' : 'none'}} 
+                    onClick={() => this.toggleTodo(todo)}>{todo.text}</span>                
+                  <button onClick={() => this.toggleEdit(todo)}>Edit</button>
+                  <button onClick={() => this.removeTodo(todo.id)}>Remove</button>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  todos: state.todos,
-  fetched: state.fetched
-})
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: () => {
-      dispatch(fetchTodos());
-    },
-    removeTodo: (id) => {
-      dispatch(deleteTodo(id))
-    },
-    toggleTodo: (todo) => {
-      dispatch(toggleTodo(todo))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default TodoList;

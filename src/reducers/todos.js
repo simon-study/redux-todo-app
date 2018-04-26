@@ -1,7 +1,9 @@
 const initialState = {
-  fetching: false,
   fetched: false,
+  isEditing: false,
+  isAdding: true,
   todos: [],
+  itemEdit: {},
   error: null
 }
 
@@ -12,23 +14,22 @@ const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
 const TOGGLE_TODO_SUCCESS = 'TOGGLE_TODO_SUCCESS';
 const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 
-const reducer = (state = initialState, action) => {
+const todos = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TODOS_PENDING:
       return {
         ...state, 
-        fetching: true
+        fetched: false
       }
     case FETCH_TODOS_REJECTED:
       return {
         ...state, 
-        fetching: false,
+        fetched: false,
         error: action.payload.error
       }
     case FETCH_TODOS_FULFILLED:
       return {
         ...state, 
-        fetching: false, 
         fetched: true, 
         todos: action.payload
       }
@@ -52,9 +53,36 @@ const reducer = (state = initialState, action) => {
         ...state,
         todos: state.todos.concat(action.payload)  
       }
+    case 'TOGGLE_EDIT_TODO': 
+      return {
+        ...state,
+        itemEdit: action.payload,
+        isAdding: false,
+        isEditing: true
+      }
+    case 'CANCEL_EDIT_TODO':
+      return {
+        ...state,
+        itemEdit: {},
+        isAdding: true,
+        isEditing: false,
+      }
+    case 'SUBMIT_EDIT_SUCCESS':
+      return {
+        ...state,
+        isAdding: true,
+        isEditing: false,
+        itemEdit: {},
+        todos: state.todos.map(todo => {
+          if (todo.id === action.payload.id) {
+            todo.text = action.payload.text
+          }
+          return todo;
+        })
+      }
     default:
       return state;
   }
 }
 
-export default reducer;
+export default todos;
