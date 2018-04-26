@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { cancelEdit } from '../action/todosAction';
-import { updateTodo } from '../action/todosAction';
 
 class TodoEdit extends Component {
   constructor (props){
@@ -11,12 +8,12 @@ class TodoEdit extends Component {
       valueInput:''
     }
   }
+
   cancelEdit = () => {
     this.props.cancelEdit()
   }
 
   handleChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       valueInput: e.target.value
     })
@@ -36,7 +33,7 @@ class TodoEdit extends Component {
   }
 
   render () {
-    const { isEditing, itemEdit } = this.props;
+    const { isEditing } = this.props;
     return (
       isEditing && 
       <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -48,20 +45,4 @@ class TodoEdit extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isEditing: state.todos.isEditing,
-  itemEdit: state.todos.itemEdit
-})
-
-const mapDispatchToProps = dispatch => {
-  return {
-    cancelEdit: () => {
-      dispatch(cancelEdit())
-    },
-    updateTodo: (id, valueInput) => {
-      dispatch(updateTodo(id, valueInput))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoEdit);
+export default TodoEdit;

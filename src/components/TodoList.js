@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../App.css';
 
 class TodoList extends Component {
 
@@ -28,6 +29,7 @@ class TodoList extends Component {
     }
 
     return(
+      !this.props.isEditing &&
       <div>        
         <ul>
           {

@@ -1,0 +1,23 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  position: relative;
+  list-style-type: none;
+  background: #eee;
+  padding: 12px 8px 12px 40px;
+}
+
+ul li span {
+  margin-right: 10px;
+}
+
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+ul li:hover {
+  background: #ddd;
+}

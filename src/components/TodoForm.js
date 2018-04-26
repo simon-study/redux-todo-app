@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { addTodo } from '../action/todosAction';
 
-const TodoForm = ({ dispatch }) => {
+const TodoForm = ({ isEditing, dispatch }) => {
   let input
 
   return (
+    !isEditing &&
     <div>
       <form
         onSubmit={e => {
@@ -24,4 +24,4 @@ const TodoForm = ({ dispatch }) => {
   )
 }
 
-export default connect()(TodoForm);
+export default TodoForm;

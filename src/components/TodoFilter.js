@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setVisibilityFilter } from '../action/todosAction';
 
 class TodoFilter extends Component {
   handleFilter = (e) => {
@@ -9,6 +7,7 @@ class TodoFilter extends Component {
 
   render() {
     return(
+      !this.props.isEditing &&
       <div>
         <button onClick={(e) => this.handleFilter(e)} data-filter='SHOW_ALL'>All</button>
         <button onClick={(e) => this.handleFilter(e)} data-filter='SHOW_ACTIVE'>Active</button>
@@ -18,16 +17,4 @@ class TodoFilter extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-  
-// })
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setVisibilityFilter: (filter) => {
-      dispatch(setVisibilityFilter(filter))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(TodoFilter);
+export default TodoFilter;
