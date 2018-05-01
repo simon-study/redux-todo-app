@@ -16,23 +16,30 @@ const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_TODOS_PENDING:
+    case 'GET_TODO_SUCCESS':
       return {
-        ...state, 
-        fetched: false
-      }
-    case FETCH_TODOS_REJECTED:
-      return {
-        ...state, 
-        fetched: false,
-        error: action.payload.error
-      }
-    case FETCH_TODOS_FULFILLED:
-      return {
-        ...state, 
+        ...state,
         fetched: true, 
-        todos: action.payload
+        todos: action.payload.data
       }
+
+    // case FETCH_TODOS_PENDING:
+    //   return {
+    //     ...state, 
+    //     fetched: false
+    //   }
+    // case FETCH_TODOS_REJECTED:
+    //   return {
+    //     ...state, 
+    //     fetched: false,
+    //     error: action.payload.error
+    //   }
+    // case FETCH_TODOS_FULFILLED:
+    //   return {
+    //     ...state, 
+    //     fetched: true, 
+    //     todos: action.payload
+    //   }
     case DELETE_TODO_SUCCESS: 
       return {
         ...state,

@@ -2,15 +2,22 @@ import axios from 'axios';
 
 const API_PATH = 'http://5adec2ccbf932f0014d11ad1.mockapi.io/api/v1/todos/';
 
+// export function fetchTodos() {
+//   return function (dispatch) {
+//     axios.get(API_PATH)
+//       .then((res) => {
+//         console.log(res)
+//         dispatch({type: 'FETCH_TODOS_FULFILLED', payload: res.data})
+//       })
+//       .catch((err) => {
+//         dispatch({type: 'FETCH_TODOS_REJECTED', payload: err})
+//       })
+//   }
+// }
+
 export function fetchTodos() {
-  return function (dispatch) {
-    axios.get(API_PATH)
-      .then((res) => {
-        dispatch({type: 'FETCH_TODOS_FULFILLED', payload: res.data})
-      })
-      .catch((err) => {
-        dispatch({type: 'FETCH_TODOS_REJECTED', payload: err})
-      })
+  return {
+    type: 'GET_TODOS'
   }
 }
 
