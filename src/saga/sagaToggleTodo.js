@@ -16,8 +16,10 @@ export function* workerToggleSaga(action) {
         completed: !action.todo.completed
       }
     })
-    console.log(response);
-    yield put({type: TOGGLE_TODO_SUCCESS, payload: response})
+    
+    if (response.status === 200) {
+      yield put({type: TOGGLE_TODO_SUCCESS, payload: response})
+    }
   } catch (error) {
     yield put({type: TOGGLE_TODO_FAILURE, payload: error})
   }
