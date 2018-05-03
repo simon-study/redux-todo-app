@@ -7,8 +7,8 @@ class TodoList extends Component {
     this.props.fetchData();
   }
 
-  removeTodo = (id) => {
-    this.props.removeTodo(id);
+  removeTodo = (todo) => {
+    this.props.removeTodo(todo);
   }
 
   toggleTodo = (todo) => {
@@ -39,7 +39,7 @@ class TodoList extends Component {
                   <span style={{textDecoration: todo.completed ? 'line-through' : 'none'}} 
                     onClick={() => this.toggleTodo(todo)}>{todo.text}</span>                
                   <button onClick={() => this.toggleEdit(todo)}>Edit</button>
-                  <button onClick={() => this.removeTodo(todo.id)}>Remove</button>
+                  <button onClick={() => this.removeTodo(todo)}>Remove</button>
                 </li>
               )
             })

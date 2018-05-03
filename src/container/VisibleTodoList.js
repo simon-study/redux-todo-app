@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import TodoList from '../components/TodoList';
-// import { fetchTodos } from ''
 import { fetchTodos } from '../action/todosAction';
 import { deleteTodo } from '../action/todosAction';
 import { toggleTodo } from '../action/todosAction';
@@ -11,9 +10,9 @@ const getVisibleTodos = (todos, filter) => {
     case 'SHOW_ALL':
       return todos
     case 'SHOW_ACTIVE':
-      return todos.filter(t => !t.completed)
-    case 'SHOW_INACTIVE':
       return todos.filter(t => t.completed)
+    case 'SHOW_INACTIVE':
+      return todos.filter(t => !t.completed)
     default:
       throw new Error('Unknown filter: ' + filter)
   }
@@ -26,13 +25,18 @@ const mapStateToProps = state => ({
   isEditing: state.todos.isEditing,
 })
 
+// let isCalled = false;
+
 const mapDispatchToProps = dispatch => {
   return {
     fetchData: () => {
       dispatch(fetchTodos());
     },
     removeTodo: (id) => {
-      dispatch(deleteTodo(id))
+      // if (!isCalled) {
+        dispatch(deleteTodo(id));
+        // isCalled = true;
+      // }
     },
     toggleTodo: (todo) => {
       dispatch(toggleTodo(todo))

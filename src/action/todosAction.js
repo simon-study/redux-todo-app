@@ -1,80 +1,45 @@
-import axios from 'axios';
+import { 
+  ADD_TODO, DELETE_TODO, 
+  TOGGLE_TODO, FETCH_TODOS,
+  TOGGLE_EDIT_TODO, CANCEL_EDIT_TODO,
+  EDIT_TODO 
+} from '../constants/actionTypes';
 
-const API_PATH = 'http://5adec2ccbf932f0014d11ad1.mockapi.io/api/v1/todos/';
+export const fetchTodos = () => ({ 
+  type: FETCH_TODOS 
+})
 
-// export function fetchTodos() {
-//   return function (dispatch) {
-//     axios.get(API_PATH)
-//       .then((res) => {
-//         console.log(res)
-//         dispatch({type: 'FETCH_TODOS_FULFILLED', payload: res.data})
-//       })
-//       .catch((err) => {
-//         dispatch({type: 'FETCH_TODOS_REJECTED', payload: err})
-//       })
-//   }
-// }
+export const deleteTodo = (todo) => ({
+  type: DELETE_TODO, 
+  todo
+})
 
-export function fetchTodos() {
-  return {
-    type: 'GET_TODOS'
-  }
-}
+export const toggleTodo = (todo) => ({
+  type: TOGGLE_TODO,
+  todo
+})
 
-export function deleteTodo(id) {
-  return function (dispatch) {
-    axios.delete(API_PATH + `${id}`)
-      .then((res) => {
-        dispatch({type: 'DELETE_TODO_SUCCESS', payload: res.data})
-      })
-      .catch((err) => {
-        dispatch({type: 'DELETE_TODO_REJECTED', payload: err})
-      })
-  }
-}
+export const addTodo = (text) => ({
+  type: ADD_TODO, 
+  text
+})
 
-export function toggleTodo(todo) {
-  return function (dispatch) {
-    axios.put(API_PATH + `${todo.id}`, {completed: !todo.completed})
-      .then((res) => {
-        dispatch({type: 'TOGGLE_TODO_SUCCESS', payload: res.data})
-      })
-      .catch((err) => {
-        dispatch({type: 'TOGGLE_TODO_ERROR', payload: err})
-      })
-  }
-}
+export const toggleEdit = (todo) => ({
+  type: TOGGLE_EDIT_TODO, 
+  payload: todo
+})
 
-export function addTodo(text) {
-  return function (dispatch) {
-    axios.post(API_PATH, { text: text, completed: false })
-      .then((res) => {
-        dispatch({type: 'ADD_TODO_SUCCESS', payload: res.data})
-      })
-      .catch((err) => {
-        dispatch({type: 'ADD_TODO_ERROR', payload: err})
-      })
-  }
-}
+export const cancelEdit = (todo) => ({
+  type: CANCEL_EDIT_TODO
+})
 
-export const toggleEdit = (todo) => ({ type: 'TOGGLE_EDIT_TODO', payload: todo })
+export const updateTodo = (id, text) => ({  
+  type: EDIT_TODO,
+  id,
+  text
+})
 
-export const cancelEdit = (todo) => ({ type: 'CANCEL_EDIT_TODO' })
-
-export function updateTodo(id, text) {
-  return function (dispatch) {
-    console.log(id, text);
-    axios.put(API_PATH + `${id}`, {text: text})
-      .then((res) => {
-        dispatch({type: 'SUBMIT_EDIT_SUCCESS', payload: res.data})
-      })
-      .catch((err) => {
-        dispatch({type: 'SUBMIT_EDIT_ERROR', payload: err})
-      })
-  }
-}
-
-export const setVisibilityFilter = filter => ({
+export const setVisibilityFilter = filter => ({ 
   type: 'SET_VISIBILITY_FILTER',
-  filter
+  filter 
 })
